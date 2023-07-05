@@ -5,13 +5,15 @@
 #include <stdexcept>
 
 #include "test.hpp"
-
+#include "camera.hpp"
 
 // Test global constructor
 TestClass globalClass;
 
 int main(void)
 {
+    Camera cam;
+
     debug_init_isviewer();
     debug_init_usblog();
     controller_init();
