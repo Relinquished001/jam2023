@@ -1,19 +1,25 @@
 #include <cstdio>
 #include <cstdint>
 #include <libdragon.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/gl_integration.h>
 #include <memory>
 #include <stdexcept>
 
 #include "test.hpp"
-#include "camera.hpp"
 
 // Test global constructor
 TestClass globalClass;
 
+
+void render() {
+  gl_context_begin();
+}
+
+
 int main(void)
 {
-    Camera cam;
-
     debug_init_isviewer();
     debug_init_usblog();
     controller_init();

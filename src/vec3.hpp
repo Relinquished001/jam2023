@@ -1,5 +1,9 @@
 #pragma once
 
+
+#include <math.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "types.hpp"
 #include "vec2.hpp"
 
@@ -88,6 +92,22 @@ public:
     );
   }
   
+
+  /* OpenGL */
+  inline void gl_vertex() const {glVertex3f(x, y, z);}
+  inline void gl_normal() const {glNormal3f(x, y, z);}
+
+  inline void gl_translate() const {glTranslatef(x, y, z);}
+  inline void gl_scale    () const {glScalef    (x, y, z);}
+  inline void gl_rotate(const real angle) const {
+    glRotatef(angle, x, y, z);
+  }
+
+  // push a matrix of current position looking at target
+  inline void gl_look_at(const Vec3&target) const {
+    gluLookAt(x, y, z, target.x, target.y, target.z, 0.0, 1.0, 0.0);
+  }
+
   /* conversion */
   inline Vec2 xy() const {return Vec2(x, y);}
   inline Vec2 yx() const {return Vec2(y, x);}

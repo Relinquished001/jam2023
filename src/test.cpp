@@ -4,7 +4,7 @@
 typedef TestClass Self;
 
 
-int state = 1;
+int cpp_state = 1;
 
 
 Self::TestClass() {
@@ -19,7 +19,7 @@ int Self::f1() {
 
 
 void Self::exc1() {
-	if (state) throw (int)d;
+	if (cpp_state) throw (int)d;
 }
 
 
