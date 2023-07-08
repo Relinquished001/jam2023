@@ -80,6 +80,21 @@ public:
     return x * o.y - y * o.x;
   }
 
+  inline Vec2 min(const Vec2&o) const {
+    return Vec2(
+      x < o.x ? x : o.x,
+      y < o.y ? y : o.y
+    );
+  }
+
+  inline Vec2 max(const Vec2&o) const {
+    return Vec2(
+      x > o.x ? x : o.x,
+      y > o.y ? y : o.y
+    );
+  }
+
+
   /* OpenGL */
   inline void gl_vertex() const {glVertex2f(x, y);}
 

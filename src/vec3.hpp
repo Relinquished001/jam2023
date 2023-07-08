@@ -92,6 +92,22 @@ public:
     );
   }
   
+  inline Vec3 min(const Vec3&o) const {
+    return Vec3(
+      x < o.x ? x : o.x,
+      y < o.y ? y : o.y,
+      z < o.z ? z : o.z
+    );
+  }
+
+  inline Vec3 max(const Vec3&o) const {
+    return Vec3(
+      x > o.x ? x : o.x,
+      y > o.y ? y : o.y,
+      z > o.z ? z : o.z
+    );
+  }
+
 
   /* OpenGL */
   inline void gl_vertex() const {glVertex3f(x, y, z);}
