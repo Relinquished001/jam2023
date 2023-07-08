@@ -10,7 +10,7 @@
 union Vec3 {
 public:
   /* attributes */
-  struct {
+  struct PACK {
     real x, y, z;
   };
   real coord[3];

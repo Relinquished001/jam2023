@@ -8,7 +8,7 @@
 union Vec2 {
 public:
   /* attributes */
-  struct {
+  struct PACK {
     real x, y;
   };
   real coord[2];
@@ -84,5 +84,5 @@ public:
   inline void gl_vertex() const {glVertex2f(x, y);}
 
   inline void gl_texcoord () const {glTexCoord2f (x, y);}
-  inline void gl_evalcoord() const {glEvalCoord2f(x, y);}
+  //inline void gl_evalcoord() const {glEvalCoord2f(x, y);} // unsupported
 };

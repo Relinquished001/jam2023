@@ -7,7 +7,7 @@
 union Color {
 public:
   /* attributes */
-  struct {
+  struct PACK {
     unit r, g, b, a;
   };
   unit rgba [4];

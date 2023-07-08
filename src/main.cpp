@@ -6,8 +6,11 @@
 #include <GL/gl_integration.h>
 #include <memory>
 #include <stdexcept>
+#include <vector>
 
 #include "test.hpp"
+#include "vec3.hpp"
+#include "vec.hpp"
 
 // Test global constructor
 TestClass globalClass;
@@ -20,6 +23,16 @@ void render() {
 
 int main(void)
 {
+  Vec<Vec3> my_array (10);
+  real*values = my_array.cast<real>();
+
+  return (int) values[0];
+  /*
+  std::vector<int> v;
+  int*ptr = v.data();
+  return *ptr;
+  */
+  /*
     debug_init_isviewer();
     debug_init_usblog();
     controller_init();
@@ -45,4 +58,5 @@ int main(void)
             localClass->crash();
         
     }
+    */
 }
