@@ -9,10 +9,10 @@
 struct Shape {
 public:
   // check if a point is inside of the shape
-  virtual bool contains(const Vec3&) const = NULL;
+  virtual bool contains(const Vec3&) const = 0;
   
   // check if two shapes intersect
-  virtual bool intersect(const Shape*const) const = NULL;
+  virtual bool intersect(const Shape*const) const = 0;
 };
 
 

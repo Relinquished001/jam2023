@@ -63,5 +63,5 @@ bool Sphere::intersect(const Sphere&o) const {
 }
 
 bool Sphere::intersect(const Box&o) const {
-  contains(o.clamp(center));
+  return contains(o.clamp(center));
 }

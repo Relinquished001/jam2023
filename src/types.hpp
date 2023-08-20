@@ -2,7 +2,6 @@
 
 #include <GL/gl.h>
 
-#define NULL 0
 #define PACK __attribute__((__packed__))
 
 typedef unsigned char byte;

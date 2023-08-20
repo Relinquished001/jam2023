@@ -29,6 +29,9 @@ public:
   ): r(p_r), g(p_g), b(p_b), a(p_a) {}
   
   Color(const usize value);
+
+
+  //explicit operator uint32_t() const {}
   
   
   /* OpenGL */

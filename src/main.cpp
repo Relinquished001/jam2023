@@ -12,51 +12,84 @@
 #include "vec3.hpp"
 #include "vec.hpp"
 
-// Test global constructor
-TestClass globalClass;
-
-
+/*
 void render() {
   gl_context_begin();
-}
+} // */
+
+
+// define some colors
+constexpr uint32_t
+BAKCGROUND = 0x1166ccFF;
+
+
+
+// store the three sprites composing the logo
+constexpr size_t LOGO_PARTS = 3;
+static sprite_t*logo[LOGO_PARTS];
+
+
+// count the amount of frame elapsed since game started
+static volatile size_t frame_counter = 0u;
 
 
 int main(void)
 {
-  Vec<Vec3> my_array (10);
-  real*values = my_array.cast<real>();
+    // highest resolution,
+    // shortest depth
+    // two buffers
+    // no gamma
+    // no antialiasing
+    display_init(RESOLUTION_320x240, DEPTH_16_BPP, 2, GAMMA_NONE, ANTIALIAS_RESAMPLE);
 
-  return (int) values[0];
-  /*
-  std::vector<int> v;
-  int*ptr = v.data();
-  return *ptr;
-  */
-  /*
-    debug_init_isviewer();
-    debug_init_usblog();
+    dfs_init(DFS_DEFAULT_LOCATION);
+
+    rdp_init();
+
     controller_init();
 
-    auto localClass = std::make_unique<TestClass>();
+    timer_init();
 
-    console_init();
-    console_set_render_mode(RENDER_MANUAL);
+    // read the sprites composing the logo
+    const char*const logo_path [LOGO_PARTS] = {"/logo1.sprite", "/logo2.sprite", "/logo3.sprite" };
+    int dfs_id;
+    for (size_t i = 0; i < LOGO_PARTS; ++i) {
 
+        // open a file, get its size and allocate memory
+        dfs_id = dfs_open(logo_path[i]);
+        const size_t data_size = dfs_size(dfs_id);
+        sprite_t*const sprite = (sprite_t*) malloc(data_size);
 
-    while(1)
-    {
-        console_clear();
-        printf("Global class method: %d\n", globalClass.f1());
-        printf("Local class method: %d\n", localClass->f1());
-        printf("Exception data: %d\n", localClass->exc());
-        printf("\nPress A to crash (test uncaught C++ exceptions)\n");
-        console_render();
-
-        controller_scan();
-        struct controller_data keys = get_keys_down();
-        if (keys.c[0].A)
-            localClass->crash();
-        
+        // read the content of the file then close it
+        dfs_read(sprite, 1, data_size, dfs_id);
+        dfs_close(dfs_id);
+        logo[i] = sprite;
     }
-    */
+
+
+    // create a timer to count frames
+    //new_timer(TIMER_TICKS(1000000 / 30), TF_CONTINUOUS, [](int){++frame_counter;});
+
+
+    // infinite loop
+    while (true) {
+        // surface on which we will draw the sprites
+        static display_context_t display = nullptr;
+
+        // wait for a render buffer to be available
+        do {display = display_lock();} while (not display);
+
+        // start to draw the screen
+        graphics_fill_screen(display, BAKCGROUND);
+        graphics_set_color(0xFFFFFFFF, 0x0);
+
+        graphics_draw_sprite_trans(display, 20, 50, logo[0]);
+
+        // buffer flip
+        display_show(display);
+
+        // scan controller inputs
+        //controller_scan();
+
+    }
 }
